@@ -6,6 +6,7 @@ import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { useAuth } from '../../hooks/useAuth';
 import Loader from '../../common/Loader';
+import { Zoom, toast } from 'react-toastify';
 
 const SignUp: React.FC = () => {
 
@@ -18,6 +19,7 @@ const SignUp: React.FC = () => {
     retypePassword: '',
     name: '',
   });
+  const [error, setError] = useState<string>("");
 
   // Handle User Creation
   const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,9 +34,24 @@ const SignUp: React.FC = () => {
       await signUp(formData.email, formData.password);
       await updateUser(formData.name);
 
-      navigate('/');
-    } catch (error) {
+      toast.success('Logged In Successfully!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+        onClose: () => navigate("/")
+    });
+    } catch (error: any) {
       console.error('Error signing up:', error);
+      setError(
+        error.message || "Failed to sign up. Please check your credentials and try again."
+      );
+
     }
   };
 
@@ -207,6 +224,7 @@ const SignUp: React.FC = () => {
                     <input
                       type="text"
                       name="name"
+                      required
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Enter your full name"
@@ -245,6 +263,7 @@ const SignUp: React.FC = () => {
                     <input
                       type="email"
                       name="email"
+                      required
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Enter your email"
@@ -279,6 +298,7 @@ const SignUp: React.FC = () => {
                     <input
                       type="password"
                       name="password"
+                      required
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Enter your password"
@@ -317,6 +337,7 @@ const SignUp: React.FC = () => {
                     <input
                       type="password"
                       name="retypePassword"
+                      required
                       value={formData.retypePassword}
                       onChange={handleChange}
                       placeholder="Re-enter your password"
@@ -346,6 +367,8 @@ const SignUp: React.FC = () => {
                     </span>
                   </div>
                 </div>
+
+                {error && <div className="my-6 text-red-600">{error}</div>}
 
                 <div className="mb-5">
                   <input

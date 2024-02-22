@@ -6,6 +6,7 @@ import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { useAuth } from '../../hooks/useAuth';
 import Loader from '../../common/Loader';
+import { Zoom, toast } from 'react-toastify';
 
 const SignIn: React.FC = () => {
 
@@ -16,6 +17,7 @@ const SignIn: React.FC = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState<string>("");
 
   // Handle User Creation
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,10 +25,23 @@ const SignIn: React.FC = () => {
 
     try {
       await signIn(formData.email, formData.password);
-
-      navigate('/');
-    } catch (error) {
+      toast.success('Logged In Successfully!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Zoom,
+        onClose: () => navigate("/")
+    });
+    } catch (error:any) {
       console.error('Error signing in:', error);
+      setError(
+        error.message || "Failed to sign up. Please check your credentials and try again."
+      );
     }
   };
 
@@ -263,6 +278,8 @@ const SignIn: React.FC = () => {
                     </span>
                   </div>
                 </div>
+
+                {error && <div className="my-6 text-red-600">{error}</div>}
 
                 <div className="mb-5">
                   <input
