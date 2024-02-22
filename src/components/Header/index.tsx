@@ -6,11 +6,11 @@ import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
 import { useAuth } from '../../hooks/useAuth';
 
-const { user } = useAuth();
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
+  const { user } = useAuth();
   return (
     <>
       {
