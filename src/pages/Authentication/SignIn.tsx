@@ -59,7 +59,7 @@ const SignIn: React.FC = () => {
         progress: undefined,
         theme: "colored",
         transition: Zoom,
-        onClose: () => navigate("/")
+        onClose: () => navigate("https://client-auth-sand.vercel.app")
       });
     } catch (error: any) {
       console.error('Error signing in:', error);
