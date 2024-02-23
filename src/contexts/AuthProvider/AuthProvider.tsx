@@ -5,7 +5,7 @@ import app from "../../../Firebase/firebase.config";
 
 export const AuthContext = createContext<AuthType | undefined>(undefined);
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
