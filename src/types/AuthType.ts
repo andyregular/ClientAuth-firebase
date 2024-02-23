@@ -6,5 +6,6 @@ export type AuthType = {
     signUp: (email: string, password: string) => void;
     logOut: () => void;
     updateUser: (profile: string) => void;
+    sendMagicLink: (email: string) => Promise<void>;
     loading: boolean;
 };

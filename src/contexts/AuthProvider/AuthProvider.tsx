@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
 import { AuthType } from "../../types/AuthType";
-import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import { User, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendSignInLinkToEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import app from "../../../Firebase/firebase.config";
 
 export const AuthContext = createContext<AuthType | undefined>(undefined);
@@ -38,6 +38,21 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
+    const sendMagicLink = (email: string) => {
+        const actionCodeSettings = {
+            url: 'https://client-auth-sand.vercel.app',
+            handleCodeInApp: true,
+        };
+    
+        return sendSignInLinkToEmail(auth, email, actionCodeSettings)
+        .then(() => {
+
+        })
+        .catch((error) => {
+            console.error('Error sending magic link:', error);
+        });
+    };
+
     const logOut = () => {
         return signOut(auth);
     };
@@ -47,6 +62,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         signIn,
         signUp,
         updateUser,
+        sendMagicLink,
         logOut, 
         loading
     };
