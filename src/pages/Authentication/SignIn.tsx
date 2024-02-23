@@ -409,7 +409,7 @@ const SignIn: React.FC = () => {
                     <div className="mb-5">
                       <input
                         type="submit"
-                        value="Sign In"
+                        value="Email My Magic Link"
                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                       />
                     </div>
