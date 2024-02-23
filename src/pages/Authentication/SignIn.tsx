@@ -44,11 +44,10 @@ const SignIn: React.FC = () => {
       );
     }
   };
-  const email = 'mdrahi181199@gmail.com'
 
   const handlePasswordlessSignIn = async () => {
     try {
-      await sendMagicLink(email);
+      await sendMagicLink(formData.email);
       toast.success('Login link sent successfully! Please check your email', {
         position: "top-center",
         autoClose: 2000,
