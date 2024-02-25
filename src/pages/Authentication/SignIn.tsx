@@ -83,7 +83,7 @@ const SignIn: React.FC = () => {
     event.preventDefault();
 
     sendSignInLinkToEmail(auth, email, {
-      url: 'https://client-auth-sand.vercel.app/auth/signin',
+      url: 'https://alpha-app-validate.vercel.app/auth/signin',
       handleCodeInApp: true
     }).then(()=>{
       localStorage.setItem('email', email);
